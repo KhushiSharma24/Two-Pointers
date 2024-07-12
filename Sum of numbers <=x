@@ -1,0 +1,48 @@
+You are given two sorted arrays ; both arrays were of size N ;  you have to find a pair of numbers such that sum of those numbers <=x and as close as possible to x 
+N = 4
+A = 1 4 5 7 
+B = 10 20 30 40 
+X = 32
+Output : -31 (1+30)
+
+
+import java.util.*;
+public class Session2 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n+1];
+        int[] arr2 = new int[n+1];
+        for(int i=1;i<=n;i++){
+            arr[i]=sc.nextInt();
+        }
+        for(int i=1;i<=n;i++){
+            arr2[i]=sc.nextInt();
+        }
+        int target=sc.nextInt();
+        int sum=0;
+        int ans=Integer.MIN_VALUE;
+        int i=1;
+        int j=n;
+        while(i<=n && j>=1){
+            if(arr[i]+arr2[j]<=target) {
+                sum = arr[i] + arr2[j];
+                ans=Math.max(ans,sum);
+                i++;
+            }
+            else{
+                j--;
+            }
+
+        }
+        System.out.println(ans);
+    }
+}
+
+INPUT:
+4
+1 4 5 7 
+10 20 30 40 
+
+OUTPUT:
+32
