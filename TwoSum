@@ -1,0 +1,43 @@
+/*  Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+You can return the answer in any order.
+
+Example 1:
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].    */
+
+
+class Solution {
+     static class Pair{
+            int idx,val;
+        public Pair(int idx,int val){
+            this.idx=idx;
+            this.val=val;
+        }
+     }
+        
+
+    public int[] twoSum(int[] nums, int target) {
+        int n=nums.length;
+        Pair[] pairs=new Pair[n];
+        for(int i=0;i<n;i++){
+            pairs[i]=new Pair(i,nums[i]);
+        }
+        Arrays.sort(pairs,Comparator.comparingInt(o->o.val));
+        int l=0,r=n-1;
+        while(l<r){
+            int sum=pairs[l].val+pairs[r].val;
+            if(sum==target){
+                return new int[] {pairs[l].idx,pairs[r].idx};
+            }
+            else if(sum<target){
+                l++;
+            }
+            else{
+                r--;
+            }
+        }
+        return new int[] {};   
+    }
+}
