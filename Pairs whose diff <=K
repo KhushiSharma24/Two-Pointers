@@ -1,0 +1,34 @@
+/*  Number of pairs whose diff <=K  */ 
+  
+
+import java.util.*;
+public class Session5_3 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        long k = scanner.nextLong();
+        long[] b = new long[n];
+
+        for (int i = 0; i < n; i++) {
+            b[i] = scanner.nextLong();
+        }
+        long co=0;
+        Arrays.sort(b);
+        for(int i=0,j=0;j<n;j++){
+            long d=b[j]-b[i];
+            while(d>k){
+                d=b[j]-b[i];
+                i++;
+            }
+            co+=j-i+1;
+        }
+        System.out.println(co-n);
+    }
+}
+
+INPUT:
+3 2
+1 3 2 
+
+OUTPUT:
+3
