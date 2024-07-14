@@ -1,0 +1,54 @@
+/*  Given an array B find the number of pairs such that 
+L <= (b[i] + b[j]) <= R 
+0 1 2 3 4 5 6 
+L = 3 R = 5 
+F[g] = number of pairs such that b[i] + b[j] <=g 
+Answer = F[R] - F[L-1] 
+O(N) to calculate F[L-1] 
+O(N) to calculate F[R]
+Hence O(2N + Nlog N(for sorting)] = O(NlogN)      */
+
+
+import java.util.*;
+public class AmazonOA_2 {
+    static long n;
+    static long[] b=new long[10000];
+    static Long calculate(long k){
+        long sum=0;
+        long co=0;
+        for(int i=0,j=(int)(n-1);i<n;i++){
+            sum=b[j]+b[i];
+            while(sum>k && i!=j){
+                j--;
+                sum=b[j]+b[i];
+            }
+            if(i==j){
+                break;
+            }
+            co+=(j-i);
+        }
+        return co;
+    }
+    public static void main(String [] args){
+        Scanner sc=new Scanner(System.in);
+        n=sc.nextLong();
+        //long[] b=new long[10000];
+        for(int i=0;i<n;i++){
+            b[i]=sc.nextLong();
+        }
+        long l,r;
+        l=sc.nextLong();
+        r=sc.nextLong();
+        Arrays.sort(b,0,(int)n);
+        System.out.println(calculate(r)-calculate(l-1));
+
+    }
+}
+
+INPUT:
+7
+0 1 2 3 4 5 6
+3 5
+
+OUTPUT:
+7
