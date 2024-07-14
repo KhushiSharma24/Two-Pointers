@@ -1,0 +1,47 @@
+/*  Given an array of size “N”; find the longest subarray which has all distinct number in it 
+B = [ 3 2 4 5 2 6 7 8 9 10] 
+O/P - 8      */
+
+
+import java.util.*;
+public class FlipkartOA {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+
+        int[] b = new int[n];
+        for (int i = 0; i < n; ++i) {
+            b[i] = scanner.nextInt();
+        }
+
+        int v = 0;
+        int i = 0, j = 0;
+        HashMap<Integer,Integer> hm=new HashMap<>();
+        while(i<n && j<n) {
+            if (!hm.containsKey(b[j])){
+                hm.put(b[j], j);
+                int l = j - i + 1;
+                v = Math.max(v, l);
+                j++;
+            }
+            else {
+                int id=hm.get(b[j]);
+                while(i<=id){
+                    hm.remove(b[i]);
+                    i++;
+                }
+                i=id+1;
+                hm.put(b[j],j);
+                j++;
+            }
+        }
+        System.out.println(v);
+    }
+}
+
+INPUT:
+10
+3 2 4 5 2 6 7 8 9 10
+
+OUTPUT:
+8
