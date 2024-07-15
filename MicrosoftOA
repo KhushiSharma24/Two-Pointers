@@ -1,0 +1,62 @@
+/*  Find the smallest subarray which has all the numbers coming in it from L to R at least one time; 
+other numbers are also allowed to come but the fixed condition is that all numbers from L to R should be coming at least one time.
+Feelings.-> If (1,5) is the first smallest subarray starting at index 1 which is valid; then you should check if (2,5) is valid?
+Because it is guaranteed that (2,2) is invalid; (2,3) is invalid; (2,4) is invalid.   */
+
+
+import java.util.*;
+public class MicrosoftOA {
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n= sc.nextInt();
+        int [] b=new int[n+1];
+        for(int i=1;i<=n;i++){
+            b[i]=sc.nextInt();
+        }
+        int l= sc.nextInt();
+        int r= sc.nextInt();
+        int i=1,j=1;
+        int ans=Integer.MAX_VALUE;
+        HashMap<Integer,Integer> hm=new HashMap<>();
+        while(i<=n && j<=n){
+            if(b[j]>=l && b[j]<=r){
+                hm.put(b[j],hm.getOrDefault(b[j],0)+1);
+            }
+            if(hm.size()==Math.abs(r-l+1)) {
+                int len = Math.abs(j - i + 1);
+                ans = Math.min(ans, len);
+
+                if (b[i] >= l && b[i] <= r) {
+                    hm.put(b[i], hm.get(b[i]) - 1);
+                    if (hm.get(b[i]) == 0) {
+                        hm.remove(b[i]);
+                    }
+                }
+                i++;
+                if (b[j] >= l && b[j] <= r) {
+                    hm.put(b[j], hm.get(b[j]) - 1);
+                    if (hm.get(b[j]) == 0) {
+                        hm.remove(b[j]);
+                    }
+                }
+            }
+            else{
+                j++;
+            }
+        }
+        if(ans==Integer.MAX_VALUE){
+            System.out.println(-1);
+        }
+        else {
+            System.out.println(ans);
+        }
+    }
+}
+
+INPUT:
+8
+2 1 4 3 2 1 1 4
+2 4
+
+OUTPUT:
+3
