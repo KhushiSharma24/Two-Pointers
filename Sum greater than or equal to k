@@ -1,0 +1,30 @@
+/* Number of subarray with sum>=k  */
+
+
+public class sum_atleast_k {
+    public static int minSubArrayLen(int k, int[] nums) {
+        int n = nums.length;
+        int minLength = Integer.MAX_VALUE;
+        int windowSum = 0;
+        int left = 0;
+
+        for (int right = 0; right < n; ++right) {
+            windowSum += nums[right];
+            while (windowSum >= k) {
+                minLength = Math.min(minLength, right - left + 1);
+                windowSum -= nums[left];
+                ++left;
+            }
+        }
+        return minLength == Integer.MAX_VALUE ? 0 : minLength;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3, 4, 5};
+        int k = 11;
+        System.out.println(minSubArrayLen(k, nums)); // Example usage
+    }
+
+}
+
+OUTPUT: 3
